@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="20dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/tv_welcome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Welcome, Hospital Admin!"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="20dp"/>
+
+        <Button
+            android:id="@+id/btn_manage_doctors"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Manage Doctors"
+            android:padding="12dp"
+            android:backgroundTint="@android:color/holo_blue_dark"
+            android:textColor="@android:color/white"/>
+
+        <Button
+            android:id="@+id/btn_manage_receptionists"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Manage Receptionists"
+            android:padding="12dp"
+            android:backgroundTint="@android:color/holo_blue_dark"
+            android:textColor="@android:color/white"/>
+
+        <Button
+            android:id="@+id/btn_manage_headstaff"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Manage Head Staff"
+            android:padding="12dp"
+            android:backgroundTint="@android:color/holo_blue_dark"
+            android:textColor="@android:color/white"/>
+
+        <Button
+            android:id="@+id/btn_manage_finance"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Manage Finance Dept"
+            android:padding="12dp"
+            android:backgroundTint="@android:color/holo_blue_dark"
+            android:textColor="@android:color/white"/>
+
+        <Button
+            android:id="@+id/btn_manage_labtech"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Manage Lab Technicians"
+            android:padding="12dp"
+            android:backgroundTint="@android:color/holo_blue_dark"
+            android:textColor="@android:color/white"/>
+
+        <Button
+            android:id="@+id/btn_manage_inventory"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Manage Inventory"
+            android:padding="12dp"
+            android:backgroundTint="@android:color/holo_blue_dark"
+            android:textColor="@android:color/white"/>
+
+        <Button
+            android:id="@+id/btn_view_patients"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="View Patients"
+            android:padding="12dp"
+            android:backgroundTint="@android:color/holo_green_dark"
+            android:textColor="@android:color/white"/>
+
+        <Button
+            android:id="@+id/btn_view_beds"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="View Bed Availability"
+            android:padding="12dp"
+            android:backgroundTint="@android:color/holo_green_dark"
+            android:textColor="@android:color/white"/>
+
+        <Button
+            android:id="@+id/btn_hospital_revenue"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="View Hospital Revenue"
+            android:padding="12dp"
+            android:backgroundTint="@android:color/holo_orange_dark"
+            android:textColor="@android:color/white"/>
+
+        <Button
+            android:id="@+id/btn_logout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Logout"
+            android:padding="12dp"
+            android:backgroundTint="@android:color/holo_red_dark"
+            android:textColor="@android:color/white"
+            android:layout_marginTop="20dp"/>
+    </LinearLayout>
+</ScrollView>
