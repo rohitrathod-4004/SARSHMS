@@ -1,4 +1,4 @@
-package com.example.hms;
+package com.example.sarshms;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,6 +9,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.sarshms.User.SignupActivityUser;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
@@ -17,7 +19,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.HashMap;
 import java.util.Map;
 
-public class SignupActivity extends AppCompatActivity {
+public class LoginActivityUser extends AppCompatActivity {
 
     private EditText etName, etUsername, etMobile, etBirthdate, etBloodGroup, etPassword;
     private Button btnSignup;
@@ -27,13 +29,13 @@ public class SignupActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_signup);
+        setContentView(R.layout.activity_signup_user);
 
         etName = findViewById(R.id.et_name);
         etUsername = findViewById(R.id.et_username);
         etMobile = findViewById(R.id.et_mobile);
         etBirthdate = findViewById(R.id.et_birthdate);
-        etBloodGroup = findViewById(R.id.et_bloodgroup);
+        etBloodGroup = findViewById(R.id.sp_bloodgroup);
         etPassword = findViewById(R.id.et_password);
         btnSignup = findViewById(R.id.btn_signup);
         TextView tvLogin = findViewById(R.id.tv_login);
@@ -51,7 +53,8 @@ public class SignupActivity extends AppCompatActivity {
         tvLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(SignupActivity.this, LoginActivity.class));
+                startActivity(new Intent(LoginActivityUser.this, SignupActivityUser.class));
+
             }
         });
     }
@@ -83,15 +86,15 @@ public class SignupActivity extends AppCompatActivity {
 
                     usersRef.document(username).set(user).addOnCompleteListener(task1 -> {
                         if (task1.isSuccessful()) {
-                            Toast.makeText(SignupActivity.this, "Signup Successful!", Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(SignupActivity.this, LoginActivity.class));
+                            Toast.makeText(LoginActivityUser.this, "Signup Successful!", Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(LoginActivityUser.this, LoginActivityUser.class));
                             finish();
                         } else {
-                            Toast.makeText(SignupActivity.this, "Error! Try Again.", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(LoginActivityUser.this, "Error! Try Again.", Toast.LENGTH_SHORT).show();
                         }
                     });
                 } else {
-                    Toast.makeText(SignupActivity.this, "Username already exists!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivityUser.this, "Username already exists!", Toast.LENGTH_SHORT).show();
                 }
             }
         });

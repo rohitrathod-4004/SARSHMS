@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "656429925647",
+    "project_id": "sarshms-c62ee",
+    "storage_bucket": "sarshms-c62ee.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:656429925647:android:e96d149e17f0798befea7a",
+        "android_client_info": {
+          "package_name": "com.example.sarshms"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCpPxmKrlYnN_0Nz9KEjU_MSha6OG2_wS8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
