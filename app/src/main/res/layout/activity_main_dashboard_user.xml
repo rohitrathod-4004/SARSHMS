@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:scrollbars="none"
+    android:background="@color/white"
+    tools:context=".User.MainActivityUser">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <!-- Header Title -->
+        <TextView
+            android:id="@+id/portalLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="15dp"
+            android:text="User Dashboard"
+            android:textColor="#000"
+            android:textSize="24sp" />
+
+        <!-- Divider Line -->
+        <View
+            android:id="@+id/portalDivider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:background="#a8a8a8"
+            android:layout_below="@id/portalLabel" />
+
+        <!-- Book Appointment -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/bookAppointmentCard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_below="@id/portalDivider"
+            app:strokeColor="#66788F"
+            app:strokeWidth="2dp"
+            app:cardCornerRadius="10dp"
+            android:elevation="3dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/bookAppointmentsImage"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:contentDescription="@string/app_name"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/take_appointment" />
+            </RelativeLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Medical History -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/medicalHistoryCard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_below="@id/bookAppointmentCard"
+            app:strokeColor="#66788F"
+            app:strokeWidth="2dp"
+            app:cardCornerRadius="10dp"
+            android:contentDescription="MedicalHistoryCard"
+            android:elevation="3dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <ImageView
+                    android:id="@+id/medicalHistoryImage"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/medical_history"
+                    android:contentDescription="Medical History" />
+            </RelativeLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Admission Status -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/admissionStatusCard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_below="@id/medicalHistoryCard"
+            app:strokeColor="#66788F"
+            app:strokeWidth="2dp"
+            app:cardCornerRadius="10dp"
+            android:elevation="3dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <ImageView
+                    android:id="@+id/admissionStatusImage"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:src="@drawable/admission_status" />
+            </RelativeLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Emergency SOS -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/emergencySOSCard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_below="@id/admissionStatusCard"
+            app:strokeColor="#FF0000"
+            app:strokeWidth="3dp"
+            app:cardCornerRadius="10dp"
+            android:elevation="3dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <ImageView
+                    android:id="@+id/emergencySOSImage"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:src="@drawable/emergency_sos"
+                    android:contentDescription="Emergency SOS" />
+            </RelativeLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+    </RelativeLayout>
+
+</ScrollView>

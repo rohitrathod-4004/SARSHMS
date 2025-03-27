@@ -74,9 +74,10 @@ public class LoginActivityHospital extends AppCompatActivity {
                                         if (authTask.isSuccessful()) {
                                             FirebaseUser user = mAuth.getCurrentUser();
                                             if (user != null) {
-                                                Toast.makeText(LoginActivityHospital.this, "Login Successful!", Toast.LENGTH_SHORT).show();
+                                                Toast.makeText(LoginActivityHospital.this, "Login Successful of Login ACtivity!", Toast.LENGTH_SHORT).show();
                                                 startActivity(new Intent(LoginActivityHospital.this, DashboardActivityHospital.class));
                                                 finish();
+
                                             }
                                         } else {
                                             Toast.makeText(LoginActivityHospital.this, "Invalid Password!", Toast.LENGTH_SHORT).show();
@@ -88,7 +89,7 @@ public class LoginActivityHospital extends AppCompatActivity {
                         }
                     } else {
                         progressDialog.dismiss();
-                        Toast.makeText(LoginActivityHospital.this, "Username does not exist!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(LoginActivityHospital.this, "Username does not exist!of Login", Toast.LENGTH_SHORT).show();
                     }
                 });
     }

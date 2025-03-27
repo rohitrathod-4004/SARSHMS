@@ -3,28 +3,55 @@ package com.example.sarshms.User;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
-
+import android.widget.ImageView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.sarshms.R;
-import com.google.firebase.auth.FirebaseAuth;
+
 
 public class MainActivityUser extends AppCompatActivity {
 
-    private Button buttonLogout;
+    private ImageView bookAppointment, historyRecords, admissionStatus, emergencySOSImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_main_dashboard_user);
 
-        buttonLogout = findViewById(R.id.buttonLogout);
+        // Initialize ImageViews
+        bookAppointment = findViewById(R.id.bookAppointmentsImage);
+        historyRecords = findViewById(R.id.medicalHistoryImage);
+        admissionStatus = findViewById(R.id.admissionStatusImage);
+        emergencySOSImage= findViewById(R.id.emergencySOSImage);
 
-        buttonLogout.setOnClickListener(v -> {
-            FirebaseAuth.getInstance().signOut();
-            startActivity(new Intent(MainActivityUser.this, LoginActivityUser.class));
-            finish();
+        // Click listeners for navigation
+        bookAppointment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivityUser.this, BookAppointmentActivity.class));
+            }
+        });
+
+        historyRecords.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivityUser.this, HistoryRecordsActivity.class));
+            }
+        });
+
+        admissionStatus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivityUser.this, AdmissionStatusActivity.class));
+            }
+        });
+
+        emergencySOSImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivityUser.this, EmergencySOS.class));
+            }
         });
     }
 }
+

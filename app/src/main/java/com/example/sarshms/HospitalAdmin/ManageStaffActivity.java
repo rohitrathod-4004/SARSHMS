@@ -77,6 +77,7 @@ public class ManageStaffActivity extends AppCompatActivity {
                         staffList.clear();
                         for (DocumentSnapshot doc : task.getResult().getDocuments()) {
                             staffList.add(doc.getId());
+                            staffList.add(staffType);
                         }
                         staffAdapter.notifyDataSetChanged();
                     }
@@ -90,29 +91,43 @@ public class ManageStaffActivity extends AppCompatActivity {
             return;
         }
 
-        // Create Firebase Auth User
-        mAuth.createUserWithEmailAndPassword(email, "default123")
-                .addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        // Save in Firestore
-                        Map<String, Object> staffData = new HashMap<>();
-                        staffData.put("email", email);
-                        db.collection("Hospitals")
-                                .document(hospitalUsername)
-                                .collection(staffType)
-                                .document(email)
-                                .set(staffData)
-                                .addOnSuccessListener(aVoid -> {
-                                    Toast.makeText(this, "Staff added successfully", Toast.LENGTH_SHORT).show();
-                                    staffList.add(email);
-                                    staffAdapter.notifyDataSetChanged();
-                                })
-                                .addOnFailureListener(e -> Toast.makeText(this, "Failed to add staff", Toast.LENGTH_SHORT).show());
-                    } else {
-                        Toast.makeText(this, "Failed to create staff account", Toast.LENGTH_SHORT).show();
-                    }
-                });
+        mAuth.fetchSignInMethodsForEmail(email).addOnCompleteListener(task -> {
+            if (task.isSuccessful() && task.getResult() != null) {
+                boolean isExisting = !task.getResult().getSignInMethods().isEmpty();
+                if (isExisting) {
+                    Toast.makeText(this, "Email already registered!", Toast.LENGTH_SHORT).show();
+                } else {
+                    // Create Firebase Auth User
+                    mAuth.createUserWithEmailAndPassword(email, "default123")
+                            .addOnCompleteListener(task1 -> {
+                                if (task1.isSuccessful()) {
+                                    // Save in Firestore
+                                    Map<String, Object> staffData = new HashMap<>();
+                                    staffData.put("email", email);
+                                    staffData.put("role", staffType);
+
+                                    db.collection("Hospitals")
+                                            .document(hospitalUsername)
+                                            .collection(staffType)
+                                            .document(email)
+                                            .set(staffData)
+                                            .addOnSuccessListener(aVoid -> {
+                                                Toast.makeText(this, "Staff added successfully", Toast.LENGTH_SHORT).show();
+                                                staffList.add(email);
+                                                staffAdapter.notifyDataSetChanged();
+                                            })
+                                            .addOnFailureListener(e -> Toast.makeText(this, "Failed to add staff", Toast.LENGTH_SHORT).show());
+                                } else {
+                                    Toast.makeText(this, "Error: " + task1.getException().getMessage(), Toast.LENGTH_LONG).show();
+                                }
+                            });
+                }
+            } else {
+                Toast.makeText(this, "Error checking email existence", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
+
 
     private void removeStaff() {
         if (selectedStaffEmail == null) {

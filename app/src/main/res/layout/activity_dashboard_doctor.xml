@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    tools:context=".DoctorAdmin.DoctorDashboardActivity">
+
+    <TextView
+        android:id="@+id/tv_welcome_doctor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Welcome, Doctor!"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        android:paddingBottom="16dp" />
+
+    <Button
+        android:id="@+id/btn_manage_patients"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Manage Patients"
+        android:padding="12dp"
+        android:backgroundTint="#000000"
+        android:textColor="@android:color/white" />
+
+    <Button
+        android:id="@+id/btn_manage_appointments"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Manage Appointments"
+        android:padding="12dp"
+        android:backgroundTint="#000000"
+        android:textColor="@android:color/white"
+        android:layout_marginTop="10dp"/>
+
+    <Button
+        android:id="@+id/btn_manage_prescriptions"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Manage Prescriptions"
+        android:padding="12dp"
+        android:backgroundTint="@color/black"
+        android:textColor="@android:color/white"
+        android:layout_marginTop="10dp"/>
+
+    <Button
+        android:id="@+id/btn_logout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Logout"
+        android:padding="12dp"
+        android:backgroundTint="#FF0000"
+        android:textColor="@android:color/white"
+        android:layout_marginTop="20dp"/>
+</LinearLayout>
