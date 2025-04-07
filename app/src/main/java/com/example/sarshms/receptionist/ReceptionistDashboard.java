@@ -5,13 +5,15 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.Toast;
-import androidx.annotation.NonNull;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.sarshms.R;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,7 +24,8 @@ public class ReceptionistDashboard extends AppCompatActivity {
     private FirebaseFirestore db;
     private AppointmentAdapter adapter;
     private List<Appointment> appointmentList = new ArrayList<>();
-    private List<String> doctorList = new ArrayList<>();
+    private final List<String> doctorList = new ArrayList<>();
+    private String hospitalId;  // 👈 Store the hospital ID passed via intent
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +37,14 @@ public class ReceptionistDashboard extends AppCompatActivity {
         recyclerAppointments = findViewById(R.id.recycler_appointments);
         recyclerAppointments.setLayoutManager(new LinearLayoutManager(this));
 
+        hospitalId = getIntent().getStringExtra("hospitalId"); // 👈 Receive hospital ID
+
+        if (hospitalId == null || hospitalId.isEmpty()) {
+            Toast.makeText(this, "Hospital ID not found", Toast.LENGTH_SHORT).show();
+            finish();
+            return;
+        }
+
         loadDoctors();
 
         spinnerDoctors.setOnItemSelectedListener(new android.widget.AdapterView.OnItemSelectedListener() {
@@ -44,38 +55,37 @@ public class ReceptionistDashboard extends AppCompatActivity {
             }
 
             @Override
-            public void onNothingSelected(android.widget.AdapterView<?> parent) { }
-        });
-    }
-
-    private void loadDoctors() {
-        db.collection("Hospitals").get().addOnCompleteListener(task -> {
-            if (task.isSuccessful()) {
-                doctorList.clear();
-                for (QueryDocumentSnapshot hospitalDoc : task.getResult()) {
-                    db.collection("Hospitals")
-                            .document(hospitalDoc.getId())
-                            .collection("Doctors")
-                            .get()
-                            .addOnCompleteListener(docTask -> {
-                                if (docTask.isSuccessful()) {
-                                    for (QueryDocumentSnapshot doc : docTask.getResult()) {
-                                        if (!doctorList.contains(doc.getId())) {
-                                            doctorList.add(doc.getId());
-                                        }
-                                    }
-                                    ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, doctorList);
-                                    spinnerDoctors.setAdapter(adapter);
-                                }
-                            });
-                }
+            public void onNothingSelected(android.widget.AdapterView<?> parent) {
             }
         });
     }
 
-    private void loadAppointments(String doctor) {
-        db.collectionGroup("Appointments")
-                .whereEqualTo("doctor", doctor)
+    private void loadDoctors() {
+        db.collection("Hospitals")
+                .document(hospitalId)
+                .collection("Doctors")
+                .get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        doctorList.clear();
+                        for (QueryDocumentSnapshot doc : task.getResult()) {
+                            if (!doctorList.contains(doc.getId())) {
+                                doctorList.add(doc.getId());
+                            }
+                        }
+                        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, doctorList);
+                        spinnerDoctors.setAdapter(adapter);
+                    } else {
+                        Toast.makeText(this, "Failed to load doctors", Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+
+    private void loadAppointments(String doctorEmail) {
+        db.collection("Hospitals")
+                .document(hospitalId)
+                .collection("Appointments")
+                .whereEqualTo("doctor", doctorEmail)
                 .get()
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
@@ -84,7 +94,7 @@ public class ReceptionistDashboard extends AppCompatActivity {
                             Appointment appointment = doc.toObject(Appointment.class);
                             appointmentList.add(appointment);
                         }
-                        adapter = new AppointmentAdapter(appointmentList);
+                        adapter = new AppointmentAdapter(ReceptionistDashboard.this, appointmentList);
                         recyclerAppointments.setAdapter(adapter);
                     } else {
                         Toast.makeText(this, "Failed to load appointments", Toast.LENGTH_SHORT).show();

@@ -14,21 +14,30 @@
         android:textStyle="bold"
         android:layout_marginBottom="20dp"/>
 
+    <Spinner
+        android:id="@+id/role_spinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp" />
+
+
     <EditText
         android:id="@+id/et_email"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="63dp"
         android:hint="Enter Email"
         android:inputType="textEmailAddress"
-        android:padding="10dp"/>
+        android:padding="10dp" />
 
     <EditText
         android:id="@+id/et_password"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="63dp"
+        android:autofillHints=""
         android:hint="Enter Password"
         android:inputType="textPassword"
-        android:padding="10dp"/>
+        android:padding="10dp" />
 
     <Button
         android:id="@+id/btn_login"
