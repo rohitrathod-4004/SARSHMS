@@ -135,37 +135,47 @@ public class LoginActivityStaff extends AppCompatActivity {
     }
 
 
+
     private void navigateToDashboard(String role, String hospitalId) {
         Toast.makeText(this, "Welcome to " + hospitalId, Toast.LENGTH_SHORT).show();
 
         Intent intent;
+        String email = etEmail.getText().toString().trim(); // ✅ Get the current email input
+
         switch (role) {
             case "Doctors":
                 intent = new Intent(LoginActivityStaff.this, DoctorDashboard.class);
+                intent.putExtra("doctorEmail", email); // ✅ Pass doctor email
                 break;
             case "Receptionists":
                 intent = new Intent(LoginActivityStaff.this, ReceptionistDashboard.class);
+                intent.putExtra("receptionistEmail", email); // optional
                 break;
-            case "Head Staff":
+            case "HeadStaff":
                 intent = new Intent(LoginActivityStaff.this, HeadStaffDashboard.class);
+                intent.putExtra("headStaffEmail", email); // optional
                 break;
-            case "Finance Dept":
+            case "FinanceDept":
                 intent = new Intent(LoginActivityStaff.this, FinanceDashboard.class);
+                intent.putExtra("financeEmail", email); // optional
                 break;
-            case "Lab Technician":
+            case "LabTechnician":
                 intent = new Intent(LoginActivityStaff.this, LabTechnicianDashboard.class);
+                intent.putExtra("labTechEmail", email); // optional
                 break;
-            case "Inventory Manager":
+            case "InventoryManager":
                 intent = new Intent(LoginActivityStaff.this, InventoryDashboard.class);
+                intent.putExtra("inventoryEmail", email); // optional
                 break;
             default:
                 Toast.makeText(LoginActivityStaff.this, "Role not recognized", Toast.LENGTH_SHORT).show();
                 return;
         }
 
-        intent.putExtra("hospitalId", hospitalId); // ✅ Send hospital ID to dashboard
+        intent.putExtra("hospitalId", hospitalId); // already present
         startActivity(intent);
         finish();
     }
+
 
 }

@@ -12,6 +12,8 @@ import com.example.sarshms.R;
 public class MainActivityUser extends AppCompatActivity {
 
     private ImageView bookAppointment, historyRecords, admissionStatus, emergencySOSImage;
+    private ImageView myPrescriptionsImage ;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +25,8 @@ public class MainActivityUser extends AppCompatActivity {
         historyRecords = findViewById(R.id.medicalHistoryImage);
         admissionStatus = findViewById(R.id.admissionStatusImage);
         emergencySOSImage= findViewById(R.id.emergencySOSImage);
+        myPrescriptionsImage =  findViewById(R.id.myPrescriptionsImage);
+
 
         // Click listeners for navigation
         bookAppointment.setOnClickListener(new View.OnClickListener() {
@@ -52,6 +56,11 @@ public class MainActivityUser extends AppCompatActivity {
                 startActivity(new Intent(MainActivityUser.this, EmergencySOS.class));
             }
         });
+
+        myPrescriptionsImage.setOnClickListener(v -> {
+            startActivity(new Intent(MainActivityUser.this, MyPrescriptionsActivity.class));
+        });
+
     }
 }
 

@@ -1,0 +1,39 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@drawable/rounded_cards"
+    android:padding="16dp"
+    android:layout_marginBottom="12dp"
+    android:elevation="4dp">
+
+    <!-- Date Label -->
+    <TextView
+        android:id="@+id/tvDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Date: 01 April 2025"
+        android:textSize="14sp"
+        android:textColor="#888888"
+        android:layout_marginBottom="8dp" />
+
+    <!-- Prescription -->
+    <TextView
+        android:id="@+id/tvPrescription"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Prescription: Take 1 tablet daily"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:textColor="#000000"
+        android:layout_marginBottom="6dp" />
+
+    <!-- Lab Test -->
+    <TextView
+        android:id="@+id/tvLabTest"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Lab Test: Blood Test"
+        android:textSize="15sp"
+        android:textColor="#333333" />
+</LinearLayout>
