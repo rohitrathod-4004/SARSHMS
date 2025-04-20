@@ -3,18 +3,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="16dp">
+    android:padding="24dp">
 
-    <Spinner
-        android:id="@+id/spinner_doctors"
+    <Button
+        android:id="@+id/btn_manage_appointments"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@android:drawable/btn_dropdown"
-        android:padding="8dp" />
+        android:text="Manage Appointments" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_appointments"
+    <Button
+        android:id="@+id/btn_appointment_history"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="10dp" />
+        android:layout_height="wrap_content"
+        android:text="Appointment History"
+        android:layout_marginTop="16dp"/>
 </LinearLayout>

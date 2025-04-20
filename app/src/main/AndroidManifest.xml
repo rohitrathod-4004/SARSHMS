@@ -34,6 +34,8 @@
         <activity android:name=".doctors.DoctorDashboard"/>
         <activity android:name=".User.BookAppointmentActivity"/>
         <activity android:name=".receptionist.ReceptionistDashboard"/>
+        <activity android:name=".receptionist.ManageAppointmentsActivity"/>
+        <activity android:name=".receptionist.ManageAppointmentsHistoryActivity"/>
 
     </application>
 

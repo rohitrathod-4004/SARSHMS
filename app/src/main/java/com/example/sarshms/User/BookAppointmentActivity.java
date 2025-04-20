@@ -132,36 +132,60 @@ public class BookAppointmentActivity extends AppCompatActivity {
         }
 
         String userEmail = mAuth.getCurrentUser().getEmail();
+        if (userEmail == null) {
+            Toast.makeText(this, "User email not found", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        db.collection("Users") // or "Hospitals", "Receptionists" — whatever your collection is
+                .whereEqualTo("email", userEmail)
+                .get()
+                .addOnSuccessListener(queryDocumentSnapshots -> {
+                    if (!queryDocumentSnapshots.isEmpty()) {
+                        // Assuming the first document is the one you're looking for
+                        DocumentSnapshot doc = queryDocumentSnapshots.getDocuments().get(0);
+                        String username = doc.getId(); // Document ID is the username
+                        Toast.makeText(this, "Username: " + username, Toast.LENGTH_SHORT).show();
+                        db.collection("Hospitals").document(selectedHospital).get()
+                                .addOnSuccessListener(documentSnapshot -> {
+                                    if (documentSnapshot.exists()) {
+                                        // Step 2: Create appointment data
+                                        Map<String, Object> appointment = new HashMap<>();
+                                        appointment.put("doctor", selectedDoctor);
+                                        appointment.put("date", selectedDate);
+                                        appointment.put("time", selectedTime);
+                                        appointment.put("userEmail", userEmail);
+                                        appointment.put("status", "pending");
+                                        appointment.put("username",username );
 
-        // Step 1: Find the hospital document
-        db.collection("Hospitals").document(selectedHospital).get()
-                .addOnSuccessListener(documentSnapshot -> {
-                    if (documentSnapshot.exists()) {
-                        // Step 2: Create appointment data
-                        Map<String, Object> appointment = new HashMap<>();
-                        appointment.put("doctor", selectedDoctor);
-                        appointment.put("date", selectedDate);
-                        appointment.put("time", selectedTime);
-                        appointment.put("userEmail", userEmail);
-
-                        // Step 3: Store inside "Appointments" subcollection of the found hospital
-                        db.collection("Hospitals")
-                                .document(selectedHospital)
-                                .collection("Appointments")
-                                .add(appointment)
-                                .addOnSuccessListener(documentReference ->
-                                        Toast.makeText(this, "Appointment booked successfully!", Toast.LENGTH_SHORT).show()
-                                )
+                                        // Step 3: Store inside "Appointments" subcollection of the found hospital
+                                        db.collection("Hospitals")
+                                                .document(selectedHospital)
+                                                .collection("Appointments")
+                                                .add(appointment)
+                                                .addOnSuccessListener(documentReference ->
+                                                        Toast.makeText(this, "Appointment booked successfully!", Toast.LENGTH_SHORT).show()
+                                                )
+                                                .addOnFailureListener(e ->
+                                                        Toast.makeText(this, "Failed to book appointment: " + e.getMessage(), Toast.LENGTH_SHORT).show()
+                                                );
+                                    } else {
+                                        Toast.makeText(this, "Hospital not found!", Toast.LENGTH_SHORT).show();
+                                    }
+                                })
                                 .addOnFailureListener(e ->
-                                        Toast.makeText(this, "Failed to book appointment: " + e.getMessage(), Toast.LENGTH_SHORT).show()
+                                        Toast.makeText(this, "Error finding hospital: " + e.getMessage(), Toast.LENGTH_SHORT).show()
                                 );
+                        // Now you can use the username as needed
                     } else {
-                        Toast.makeText(this, "Hospital not found!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(this, "No user found with this email", Toast.LENGTH_SHORT).show();
                     }
                 })
-                .addOnFailureListener(e ->
-                        Toast.makeText(this, "Error finding hospital: " + e.getMessage(), Toast.LENGTH_SHORT).show()
-                );
+                .addOnFailureListener(e -> {
+                    Toast.makeText(this, "Failed to fetch username: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                });
+
+
+
     }
 
 }
