@@ -141,6 +141,36 @@
             </RelativeLayout>
         </com.google.android.material.card.MaterialCardView>
 
+        <!-- My Prescriptions -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/myPrescriptionsCard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_below="@id/emergencySOSCard"
+            app:strokeColor="#4CAF50"
+            app:strokeWidth="2dp"
+            app:cardCornerRadius="10dp"
+            android:elevation="3dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/myPrescriptionsImage"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/my_prescription"
+                    android:contentDescription="My Prescription"/>
+
+            </RelativeLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+
     </RelativeLayout>
 
 </ScrollView>

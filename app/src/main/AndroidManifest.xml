@@ -36,6 +36,12 @@
         <activity android:name=".receptionist.ReceptionistDashboard"/>
         <activity android:name=".receptionist.ManageAppointmentsActivity"/>
         <activity android:name=".receptionist.ManageAppointmentsHistoryActivity"/>
+        <activity android:name=".doctors.ManagePatientsActivity"/>
+        <activity android:name=".User.MyPrescriptionsActivity"/>
+        <activity android:name=".HeadStaff.HeadStaffDashboard"/>
+        <activity android:name=".HeadStaff.ManualAdmitActivity"/>
+        <activity android:name=".HeadStaff.SetHospitalInfoActivity"/>
+        <activity android:name=".HeadStaff.AllotBedsActivity"/>
 
     </application>
 

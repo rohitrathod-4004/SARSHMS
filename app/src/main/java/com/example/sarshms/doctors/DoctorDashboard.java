@@ -3,7 +3,6 @@ package com.example.sarshms.doctors;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -12,8 +11,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.sarshms.HospitalStaff.LoginActivityStaff;
 import com.example.sarshms.R;
+import com.example.sarshms.doctors.ManagePatientsActivity; // 👈 Make sure this is the correct import
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 public class DoctorDashboard extends AppCompatActivity {
@@ -35,7 +34,7 @@ public class DoctorDashboard extends AppCompatActivity {
         db = FirebaseFirestore.getInstance();
 
         // Get data from Intent
-        hospitalUsername = getIntent().getStringExtra("hospitalUsername");
+        hospitalUsername = getIntent().getStringExtra("hospitalId");
         doctorEmail = getIntent().getStringExtra("doctorEmail");
 
         // UI Elements
@@ -52,7 +51,6 @@ public class DoctorDashboard extends AppCompatActivity {
         btnManagePatients.setOnClickListener(v -> openManagePage("Patients"));
         btnManageAppointments.setOnClickListener(v -> openManagePage("Appointments"));
         btnManagePrescriptions.setOnClickListener(v -> openManagePage("Prescriptions"));
-
         btnLogout.setOnClickListener(v -> {
             mAuth.signOut();
             startActivity(new Intent(DoctorDashboard.this, LoginActivityStaff.class));
@@ -61,7 +59,8 @@ public class DoctorDashboard extends AppCompatActivity {
     }
 
     private void fetchDoctorDetails() {
-        if (hospitalUsername == null || hospitalUsername.isEmpty() || doctorEmail == null || doctorEmail.isEmpty()) {
+        if (hospitalUsername == null || doctorEmail == null ||
+                hospitalUsername.isEmpty() || doctorEmail.isEmpty()) {
             Log.e(TAG, "fetchDoctorDetails: Invalid hospitalUsername or doctorEmail");
             return;
         }
@@ -84,10 +83,29 @@ public class DoctorDashboard extends AppCompatActivity {
     }
 
     private void openManagePage(String type) {
-//        Intent intent = new Intent(DoctorDashboard.this, ManageDoctorSectionActivity.class);
-//        intent.putExtra("type", type);
-//        intent.putExtra("hospitalUsername", hospitalUsername);
-//        intent.putExtra("doctorEmail", doctorEmail);
-//        startActivity(intent);
+        Intent intent;
+        switch (type) {
+            case "Patients":
+                intent = new Intent(DoctorDashboard.this, ManagePatientsActivity.class);
+                break;
+
+            case "Appointments":
+                // intent = new Intent(DoctorDashboard.this, ManageAppointmentsActivity.class);
+                Toast.makeText(this, "Coming Soon: Manage Appointments", Toast.LENGTH_SHORT).show();
+                return;
+
+            case "Prescriptions":
+                // intent = new Intent(DoctorDashboard.this, ManagePrescriptionsActivity.class);
+                Toast.makeText(this, "Coming Soon: Manage Prescriptions", Toast.LENGTH_SHORT).show();
+                return;
+
+            default:
+                Toast.makeText(this, "Invalid section!", Toast.LENGTH_SHORT).show();
+                return;
+        }
+
+        intent.putExtra("hospitalUsername", hospitalUsername);
+        intent.putExtra("doctorEmail", doctorEmail);
+        startActivity(intent);
     }
 }

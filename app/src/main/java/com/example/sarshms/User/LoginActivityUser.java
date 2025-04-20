@@ -1,6 +1,7 @@
 package com.example.sarshms.User;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.widget.Button;
@@ -15,6 +16,7 @@ import com.example.sarshms.R;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class LoginActivityUser extends AppCompatActivity {
 
@@ -56,13 +58,44 @@ public class LoginActivityUser extends AppCompatActivity {
             if (task.isSuccessful()) {
                 FirebaseUser user = mAuth.getCurrentUser();
                 if (user != null) {
-                    Toast.makeText(LoginActivityUser.this, "Login Successful!", Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(LoginActivityUser.this, MainActivityUser.class));
-                    finish();
+                    String userEmail = user.getEmail();
+
+                    // 🔥 Now fetch the username from Firestore
+                    FirebaseFirestore.getInstance()
+                            .collection("Users")
+                            .whereEqualTo("email", userEmail)
+                            .get()
+                            .addOnSuccessListener(queryDocumentSnapshots -> {
+                                if (!queryDocumentSnapshots.isEmpty()) {
+                                    String username = queryDocumentSnapshots.getDocuments()
+                                            .get(0)
+                                            .getString("username");
+
+                                    if (username != null) {
+                                        // ✅ Save username in SharedPreferences
+                                        SharedPreferences prefs = getSharedPreferences("MyPrefs", MODE_PRIVATE);
+                                        SharedPreferences.Editor editor = prefs.edit();
+                                        editor.putString("username", username);
+                                        editor.apply();
+
+                                        Toast.makeText(LoginActivityUser.this, "Login Successful!", Toast.LENGTH_SHORT).show();
+                                        startActivity(new Intent(LoginActivityUser.this, MainActivityUser.class));
+                                        finish();
+                                    } else {
+                                        Toast.makeText(this, "Username not found for this user", Toast.LENGTH_SHORT).show();
+                                    }
+                                } else {
+                                    Toast.makeText(this, "User record not found", Toast.LENGTH_SHORT).show();
+                                }
+                            })
+                            .addOnFailureListener(e -> {
+                                Toast.makeText(this, "Error fetching username", Toast.LENGTH_SHORT).show();
+                            });
                 }
             } else {
                 Toast.makeText(LoginActivityUser.this, "Login Failed. Check your credentials.", Toast.LENGTH_SHORT).show();
             }
         });
     }
+
 }
