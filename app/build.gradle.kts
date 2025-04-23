@@ -26,6 +26,7 @@ android {
             )
         }
     }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
@@ -33,25 +34,25 @@ android {
 }
 
 dependencies {
-    implementation(libs.appcompat)
-    implementation(libs.material)
-    implementation(libs.activity)
-    implementation(libs.constraintlayout)
-    implementation(libs.gridlayout)
-    implementation(libs.recyclerview)
+    // Firebase BoM
+    implementation(platform("com.google.firebase:firebase-bom:32.7.3"))
+
+    // Firebase dependencies (no versions!)
+    implementation("com.google.firebase:firebase-auth")
+    implementation("com.google.firebase:firebase-firestore")
+    implementation("com.google.firebase:firebase-inappmessaging-display") // Use display module directly
+
+    // Material & AndroidX
+    implementation("com.google.android.material:material:1.11.0")
+    implementation(libs.recyclerview.v132)
+    implementation("androidx.appcompat:appcompat:1.6.1")
+    implementation("androidx.core:core-ktx:1.12.0")
+    implementation("androidx.emoji2:emoji2:1.3.0")
+    implementation("androidx.constraintlayout:constraintlayout:2.1.4")
+    implementation("androidx.gridlayout:gridlayout:1.0.0")
+
+    // Testing
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
-
-    // ✅ Use Firebase BOM to ensure compatibility
-    implementation(platform("com.google.firebase:firebase-bom:32.7.3"))
-
-    // Firebase Auth & Firestore
-    implementation("com.google.firebase:firebase-auth")
-    implementation("com.google.firebase:firebase-firestore")
-    implementation("com.google.android.material:material:1.11.0")
-    implementation("androidx.recyclerview:recyclerview:1.3.2")
-    implementation ("androidx.appcompat:appcompat:1.6.1")
-    implementation("androidx.emoji2:emoji2:1.3.0")
-    implementation ("androidx.core:core-ktx:1.12.0")
 }

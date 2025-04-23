@@ -1,31 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layoutRoot"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
 
-    <LinearLayout
-        android:orientation="vertical"
-        android:padding="24dp"
+    <!-- Step 1: Enter total rooms -->
+    <EditText
+        android:id="@+id/et_total_rooms"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:hint="Enter total number of rooms"
+        android:inputType="number" />
 
-        <EditText
-            android:id="@+id/et_total_beds"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Enter Total Beds"
-            android:inputType="number" />
+    <Button
+        android:id="@+id/btn_generate_rooms"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Generate Rooms" />
 
-        <EditText
-            android:id="@+id/et_facilities"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Facilities (comma-separated)" />
-
-        <Button
-            android:id="@+id/btn_save_info"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Save Hospital Info"
-            android:layout_marginTop="20dp"/>
-    </LinearLayout>
-</ScrollView>
+    <!-- Step 2: RecyclerView for room details -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_rooms"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:paddingTop="16dp" />
+</LinearLayout>

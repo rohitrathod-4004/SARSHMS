@@ -1,0 +1,30 @@
+<LinearLayout android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="8dp"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <TextView
+        android:id="@+id/tv_bed_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Bed1"
+        android:textStyle="bold"
+        android:layout_gravity="center_vertical" />
+
+    <Spinner
+        android:id="@+id/spinner_bed_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_gravity="center_vertical" />
+
+    <Button
+        android:id="@+id/btn_delete_bed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Delete"
+        android:layout_marginStart="12dp"
+        android:textSize="12sp"
+        android:layout_gravity="center_vertical"/>
+</LinearLayout>

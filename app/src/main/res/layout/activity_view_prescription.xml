@@ -1,0 +1,51 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <!-- Prescription Title -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Prescription Details"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="16dp" />
+
+    <!-- Symptoms -->
+    <TextView
+        android:id="@+id/textViewSymptoms"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Symptoms: " />
+
+    <!-- Diagnosis -->
+    <TextView
+        android:id="@+id/textViewDiagnosis"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Diagnosis: " />
+
+    <!-- Medicines -->
+    <TextView
+        android:id="@+id/textViewMedicines"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Medicines: " />
+
+    <!-- Additional Notes -->
+    <TextView
+        android:id="@+id/textViewNotes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Additional Notes: " />
+
+    <!-- Back Button -->
+    <Button
+        android:id="@+id/btnBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Back" />
+</LinearLayout>
