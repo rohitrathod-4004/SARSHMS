@@ -3,54 +3,55 @@ package com.example.sarshms.HeadStaff;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.sarshms.R;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.SetOptions;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class SetHospitalInfoActivity extends AppCompatActivity {
 
-    private EditText etTotalBeds, etFacilities;
-    private Button btnSaveInfo;
-    private String hospitalUsername; // Pass via Intent
+    private EditText etTotalRooms;
+    private Button btnGenerateRooms;
+    private RecyclerView recyclerRooms;
+    private String hospitalUsername;
+    private List<RoomModel> roomList;
+    private RoomAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_set_hospital_info);
 
+        etTotalRooms = findViewById(R.id.et_total_rooms);
+        btnGenerateRooms = findViewById(R.id.btn_generate_rooms);
+        recyclerRooms = findViewById(R.id.recycler_rooms);
+        recyclerRooms.setLayoutManager(new LinearLayoutManager(this));
+
         hospitalUsername = getIntent().getStringExtra("hospitalUsername");
 
-        etTotalBeds = findViewById(R.id.et_total_beds);
-        etFacilities = findViewById(R.id.et_facilities);
-        btnSaveInfo = findViewById(R.id.btn_save_info);
-
-        btnSaveInfo.setOnClickListener(v -> {
-            String totalBeds = etTotalBeds.getText().toString().trim();
-            String facilities = etFacilities.getText().toString().trim();
-
-            if (totalBeds.isEmpty()) {
-                Toast.makeText(this, "Enter number of beds", Toast.LENGTH_SHORT).show();
+        btnGenerateRooms.setOnClickListener(v -> {
+            int totalRooms;
+            try {
+                totalRooms = Integer.parseInt(etTotalRooms.getText().toString());
+            } catch (Exception e) {
+                etTotalRooms.setError("Enter a valid number");
                 return;
             }
 
-            Map<String, Object> data = new HashMap<>();
-            data.put("totalBeds", Integer.parseInt(totalBeds));
-            data.put("facilities", facilities);
+            roomList = new ArrayList<>();
+            for (int i = 1; i <= totalRooms; i++) {
+                String roomId = "Room" + i;
+                roomList.add(new RoomModel(roomId, i, new HashMap<>()));
+            }
 
-            FirebaseFirestore.getInstance().collection("Hospitals")
-                    .document(hospitalUsername)
-                    .set(data, SetOptions.merge())
-                    .addOnSuccessListener(unused -> {
-                        Toast.makeText(this, "Hospital Info Saved", Toast.LENGTH_SHORT).show();
-                        finish();
-                    });
+            adapter = new RoomAdapter(roomList, hospitalUsername);
+            recyclerRooms.setAdapter(adapter);
         });
     }
 }

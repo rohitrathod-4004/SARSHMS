@@ -31,17 +31,25 @@
         <activity android:name=".HospitalAdmin.ManageStaffActivity"/>
         <activity android:name=".HospitalAdmin.SignupActivityHospital"/>
         <activity android:name=".HospitalStaff.LoginActivityStaff"/>
-        <activity android:name=".doctors.DoctorDashboard"/>
         <activity android:name=".User.BookAppointmentActivity"/>
         <activity android:name=".receptionist.ReceptionistDashboard"/>
         <activity android:name=".receptionist.ManageAppointmentsActivity"/>
         <activity android:name=".receptionist.ManageAppointmentsHistoryActivity"/>
         <activity android:name=".doctors.ManagePatientsActivity"/>
+        <activity android:name=".doctors.DoctorDashboard"/>
+        <activity android:name=".doctors.ManageAdmittedPatientsActivity"/>
+        <activity android:name=".doctors.PatientDetailsActivity"/>
+        <activity android:name=".doctors.ViewPrescriptionActivity"/>
+        <activity android:name=".doctors.GeneratePrescriptionActivity"/>
         <activity android:name=".User.MyPrescriptionsActivity"/>
         <activity android:name=".HeadStaff.HeadStaffDashboard"/>
         <activity android:name=".HeadStaff.ManualAdmitActivity"/>
         <activity android:name=".HeadStaff.SetHospitalInfoActivity"/>
-        <activity android:name=".HeadStaff.AllotBedsActivity"/>
+        <activity android:name=".HeadStaff.ViewRoomStatusActivity"/>
+        <activity android:name=".HeadStaff.ManageBedsActivity"/>
+        <activity android:name=".HeadStaff.AdmissionRequestsActivity"/>
+        <activity android:name=".HeadStaff.PatientDetailActivity"/>
+        <activity android:name=".HeadStaff.AdmittedPatientsActivity"/>
 
     </application>
 

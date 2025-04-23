@@ -1,0 +1,23 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <!-- Title -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Manage Admitted Patients"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <!-- RecyclerView for Admitted Patients -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewAdmittedPatients"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+</LinearLayout>
+
+

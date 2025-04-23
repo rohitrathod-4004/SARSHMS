@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <!-- Patient Username -->
+    <TextView
+        android:id="@+id/tv_username"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Patient: John Doe"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <!-- Doctor Name (Editable) -->
+    <TextView
+        android:id="@+id/tv_doctor"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Doctor: Dr. Smith"
+        android:textSize="16sp" />
+
+    <EditText
+        android:id="@+id/et_doctor"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Change Doctor Name"
+        android:visibility="gone" />
+
+    <!-- Room & Bed Information -->
+    <TextView
+        android:id="@+id/tv_room_bed"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Room: A2, Bed: 3"
+        android:textSize="16sp" />
+
+    <!-- Change Doctor Button -->
+    <Button
+        android:id="@+id/btn_change_doctor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Change Doctor" />
+
+    <!-- View Reports Button -->
+    <Button
+        android:id="@+id/btn_view_reports"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="View Reports" />
+
+</LinearLayout>

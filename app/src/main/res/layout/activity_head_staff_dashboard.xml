@@ -2,6 +2,7 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:padding="24dp">
 
     <LinearLayout
@@ -29,21 +30,49 @@
             android:textColor="#FFFFFF" />
 
         <Button
-            android:id="@+id/btn_allot_beds"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Allot Beds to Admitted Patients"
-            android:layout_marginBottom="20dp"
-            android:backgroundTint="#2196F3"
-            android:textColor="#FFFFFF" />
-
-        <Button
             android:id="@+id/btn_manual_admit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Manually Admit a Patient"
             android:backgroundTint="#FF5722"
             android:textColor="#FFFFFF" />
+
+        <Button
+            android:id="@+id/btn_view_room_status"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="View Room &amp; Bed Status"
+            android:layout_marginTop="20dp"
+            android:backgroundTint="#9C27B0"
+            android:textColor="#FFFFFF" />
+
+        <Button
+            android:id="@+id/btn_manage_beds"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Manage Beds"
+            android:layout_marginTop="20dp"
+            android:backgroundTint="#795548"
+            android:textColor="#FFFFFF" />
+
+        <Button
+            android:id="@+id/btn_admission_requests"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Manage Admission Requests"
+            android:layout_marginTop="20dp"
+            android:backgroundTint="#3F51B5"
+            android:textColor="#FFFFFF" />
+
+        <Button
+            android:id="@+id/btn_view_admitted_patients"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="View Admitted Patients"
+            android:layout_marginTop="20dp"
+            android:backgroundTint="#607D8B"
+            android:textColor="#FFFFFF" />
+
 
     </LinearLayout>
 </ScrollView>

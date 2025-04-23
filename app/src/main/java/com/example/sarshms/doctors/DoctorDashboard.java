@@ -24,10 +24,13 @@ public class DoctorDashboard extends AppCompatActivity {
 
     private static final String TAG = "DoctorDashboard";
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard_doctor);
+
 
         // Initialize Firebase
         mAuth = FirebaseAuth.getInstance();
@@ -37,6 +40,7 @@ public class DoctorDashboard extends AppCompatActivity {
         hospitalUsername = getIntent().getStringExtra("hospitalId");
         doctorEmail = getIntent().getStringExtra("doctorEmail");
 
+
         // UI Elements
         tvWelcomeDoctor = findViewById(R.id.tv_welcome_doctor);
         Button btnManagePatients = findViewById(R.id.btn_manage_patients);
@@ -45,12 +49,21 @@ public class DoctorDashboard extends AppCompatActivity {
         Button btnLogout = findViewById(R.id.btn_logout);
 
         // Fetch doctor details
-        fetchDoctorDetails();
+        fetchDoctorDetails(hospitalUsername , doctorEmail);
 
         // Button Listeners
-        btnManagePatients.setOnClickListener(v -> openManagePage("Patients"));
-        btnManageAppointments.setOnClickListener(v -> openManagePage("Appointments"));
-        btnManagePrescriptions.setOnClickListener(v -> openManagePage("Prescriptions"));
+        btnManagePatients.setOnClickListener(v -> openManagePage("Patients",hospitalUsername , doctorEmail));
+        btnManageAppointments.setOnClickListener(v -> openManagePage("Appointments",hospitalUsername , doctorEmail));
+        btnManagePrescriptions.setOnClickListener(v -> openManagePage("Prescriptions",hospitalUsername , doctorEmail));
+        Button btnManageAdmittedPatients = findViewById(R.id.btnManageAdmittedPatients);
+
+        btnManageAdmittedPatients.setOnClickListener(v -> {
+            Intent intent = new Intent(DoctorDashboard.this, ManageAdmittedPatientsActivity.class);
+            intent.putExtra("hospitalUsername", hospitalUsername);
+            intent.putExtra("doctorEmail", doctorEmail);
+            startActivity(intent);
+        });
+
         btnLogout.setOnClickListener(v -> {
             mAuth.signOut();
             startActivity(new Intent(DoctorDashboard.this, LoginActivityStaff.class));
@@ -58,7 +71,7 @@ public class DoctorDashboard extends AppCompatActivity {
         });
     }
 
-    private void fetchDoctorDetails() {
+    private void fetchDoctorDetails(String hospitalUsername , String doctorEmail ) {
         if (hospitalUsername == null || doctorEmail == null ||
                 hospitalUsername.isEmpty() || doctorEmail.isEmpty()) {
             Log.e(TAG, "fetchDoctorDetails: Invalid hospitalUsername or doctorEmail");
@@ -70,7 +83,7 @@ public class DoctorDashboard extends AppCompatActivity {
                 .get()
                 .addOnSuccessListener(documentSnapshot -> {
                     if (documentSnapshot.exists()) {
-                        String doctorName = documentSnapshot.getString("doctorName");
+                        String doctorName = documentSnapshot.getString("email");
                         tvWelcomeDoctor.setText("Welcome, Dr. " + doctorName + "!");
                     } else {
                         Toast.makeText(this, "Doctor profile not found!", Toast.LENGTH_LONG).show();
@@ -82,11 +95,13 @@ public class DoctorDashboard extends AppCompatActivity {
                 });
     }
 
-    private void openManagePage(String type) {
+    private void openManagePage(String type , String hospitalUsername , String doctorEmail) {
         Intent intent;
+        Toast.makeText(this, hospitalUsername,  Toast.LENGTH_LONG).show();
         switch (type) {
             case "Patients":
                 intent = new Intent(DoctorDashboard.this, ManagePatientsActivity.class);
+
                 break;
 
             case "Appointments":

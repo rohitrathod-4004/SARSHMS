@@ -21,12 +21,12 @@
         android:id="@+id/appName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="SARSHMS"
-        android:textSize="26sp"
-        android:textColor="@color/black"
-        android:textStyle="bold"
+        android:layout_marginBottom="30dp"
         android:fontFamily="sans-serif-medium"
-        android:layout_marginBottom="30dp"/>
+        android:text="HMS"
+        android:textColor="@color/black"
+        android:textSize="26sp"
+        android:textStyle="bold" />
 
     <!-- Login as User -->
     <Button

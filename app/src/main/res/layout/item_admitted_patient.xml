@@ -1,40 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:background="#f2f2f2"
-    android:padding="16dp">
+    android:padding="12dp"
+    android:background="@drawable/bg_border"
+    android:layout_margin="8dp"
+    android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/tv_username"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Username: "
+    <TextView android:id="@+id/tv_username"
+        android:textStyle="bold"
         android:textSize="16sp"
-        android:textStyle="bold" />
+        android:text="Username"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView android:id="@+id/tv_doctor"
+        android:text="Doctor"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
     <TextView
-        android:id="@+id/tv_notes"
+        android:id="@+id/tv_room_bed"
+        android:text="Room &amp; Bed"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Notes: "
-        android:textSize="14sp"
-        android:layout_marginTop="4dp" />
-
-    <TextView
-        android:id="@+id/tv_bed_no"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Bed No: "
-        android:textSize="14sp"
-        android:layout_marginTop="4dp" />
+        android:layout_height="wrap_content" />
 
     <Button
-        android:id="@+id/btn_allot_bed"
+        android:id="@+id/btn_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Allot Bed"
-        android:layout_marginTop="10dp"
-        android:backgroundTint="#4CAF50"
-        android:textColor="#FFFFFF" />
+        android:text="View Report" />
+
 </LinearLayout>
