@@ -103,12 +103,13 @@ public class LoginActivityStaff extends AppCompatActivity {
         }
 
         final String dbRole = roleCollection;
-        final boolean[] userFound = {false}; // mutable wrapper for boolean
+        final boolean[] userFound = {false};
 
         db.collection("Hospitals").get().addOnCompleteListener(task -> {
             if (task.isSuccessful() && task.getResult() != null) {
                 for (DocumentSnapshot hospitalDoc : task.getResult()) {
                     String hospitalId = hospitalDoc.getId();
+
                     db.collection("Hospitals")
                             .document(hospitalId)
                             .collection(dbRole)
@@ -116,13 +117,20 @@ public class LoginActivityStaff extends AppCompatActivity {
                             .get()
                             .addOnCompleteListener(innerTask -> {
                                 if (innerTask.isSuccessful() && innerTask.getResult().exists() && !userFound[0]) {
-                                    userFound[0] = true;
-                                    navigateToDashboard(dbRole, hospitalId);
+                                    String status = innerTask.getResult().getString("status");
+
+                                    if (status != null && status.equals("active")) {
+                                        userFound[0] = true;
+                                        navigateToDashboard(dbRole, hospitalId);
+                                    } else {
+                                        Toast.makeText(LoginActivityStaff.this, "Your account is disabled. Contact admin.", Toast.LENGTH_LONG).show();
+                                        mAuth.signOut(); // Sign out immediately
+                                    }
                                 }
                             });
                 }
 
-                // Timeout fallback in case no match is found
+                // Timeout fallback if no match found
                 new Handler().postDelayed(() -> {
                     if (!userFound[0]) {
                         Toast.makeText(LoginActivityStaff.this, "User not found under selected role in any hospital", Toast.LENGTH_SHORT).show();
@@ -133,6 +141,7 @@ public class LoginActivityStaff extends AppCompatActivity {
             }
         });
     }
+
 
 
 

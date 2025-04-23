@@ -18,6 +18,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class ManageStaffActivity extends AppCompatActivity {
 
@@ -76,13 +77,16 @@ public class ManageStaffActivity extends AppCompatActivity {
                     if (task.isSuccessful() && task.getResult() != null) {
                         staffList.clear();
                         for (DocumentSnapshot doc : task.getResult().getDocuments()) {
-                            staffList.add(doc.getId());
-                            staffList.add(staffType);
+                            String status = doc.getString("status");
+                            if (status == null || !status.equals("inactive")) {
+                                staffList.add(doc.getId());
+                            }
                         }
                         staffAdapter.notifyDataSetChanged();
                     }
                 });
     }
+
 
     private void addStaff() {
         String email = etStaffEmail.getText().toString().trim();
@@ -93,7 +97,7 @@ public class ManageStaffActivity extends AppCompatActivity {
 
         mAuth.fetchSignInMethodsForEmail(email).addOnCompleteListener(task -> {
             if (task.isSuccessful() && task.getResult() != null) {
-                boolean isExisting = !task.getResult().getSignInMethods().isEmpty();
+                boolean isExisting = !Objects.requireNonNull(task.getResult().getSignInMethods()).isEmpty();
                 if (isExisting) {
                     Toast.makeText(this, "Email already registered!", Toast.LENGTH_SHORT).show();
                 } else {
@@ -105,6 +109,7 @@ public class ManageStaffActivity extends AppCompatActivity {
                                     Map<String, Object> staffData = new HashMap<>();
                                     staffData.put("email", email);
                                     staffData.put("role", staffType);
+                                    staffData.put("status", "active");
 
                                     db.collection("Hospitals")
                                             .document(hospitalUsername)
@@ -118,7 +123,7 @@ public class ManageStaffActivity extends AppCompatActivity {
                                             })
                                             .addOnFailureListener(e -> Toast.makeText(this, "Failed to add staff", Toast.LENGTH_SHORT).show());
                                 } else {
-                                    Toast.makeText(this, "Error: " + task1.getException().getMessage(), Toast.LENGTH_LONG).show();
+                                    Toast.makeText(this, "Error: " + Objects.requireNonNull(task1.getException()).getMessage(), Toast.LENGTH_LONG).show();
                                 }
                             });
                 }
@@ -129,32 +134,26 @@ public class ManageStaffActivity extends AppCompatActivity {
     }
 
 
+
     private void removeStaff() {
         if (selectedStaffEmail == null) {
-            Toast.makeText(this, "Select a staff member to remove", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Select a staff member to disable", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        // Delete from Firebase Auth
-        mAuth.getCurrentUser().delete()
-                .addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        // Delete from Firestore
-                        db.collection("Hospitals")
-                                .document(hospitalUsername)
-                                .collection(staffType)
-                                .document(selectedStaffEmail)
-                                .delete()
-                                .addOnSuccessListener(aVoid -> {
-                                    Toast.makeText(this, "Staff removed successfully", Toast.LENGTH_SHORT).show();
-                                    staffList.remove(selectedStaffEmail);
-                                    staffAdapter.notifyDataSetChanged();
-                                    selectedStaffEmail = null;
-                                })
-                                .addOnFailureListener(e -> Toast.makeText(this, "Failed to remove staff", Toast.LENGTH_SHORT).show());
-                    } else {
-                        Toast.makeText(this, "Failed to delete staff account", Toast.LENGTH_SHORT).show();
-                    }
-                });
+        // Update status instead of deleting
+        db.collection("Hospitals")
+                .document(hospitalUsername)
+                .collection(staffType)
+                .document(selectedStaffEmail)
+                .update("status", "inactive")
+                .addOnSuccessListener(aVoid -> {
+                    Toast.makeText(this, "Staff account disabled successfully", Toast.LENGTH_SHORT).show();
+                    staffList.remove(selectedStaffEmail);
+                    staffAdapter.notifyDataSetChanged();
+                    selectedStaffEmail = null;
+                })
+                .addOnFailureListener(e -> Toast.makeText(this, "Failed to disable staff", Toast.LENGTH_SHORT).show());
     }
+
 }
